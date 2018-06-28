@@ -16,74 +16,58 @@ namespace personelKayit_dosyaOkuma_
     public partial class Form1 : Form
     {
         BindingList<Person> personList = new BindingList<Person>();
-
+        const string csvExtension = "Csv File|*.csv";
+        const string xmlExtension = "XML files|*.xml";
+        const string jsonExtension = "Json files|*.json";
         public Form1()
         {
             InitializeComponent();
             dgwListe.AutoGenerateColumns = false;
             dgwListe.DataSource = personList;
+            fillComboboxItems();
+        }
+
+        private void fillComboboxItems()
+        {
+            cmbType.Items.AddRange(Enum.GetNames(typeof(FileType)));
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            Person person = new Person();
-            frmAdd frmAdd = new frmAdd(person);
-            if (frmAdd.ShowDialog(this) == DialogResult.OK)
-            {
-                personList.Add(person);
-                MessageBox.Show("New person addedd.");
-            }
-            frmAdd.Dispose();
+            AddPerson add = new AddPerson();
+            add.addPerson(personList);
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
-            Person person;
-            if (dgwListe.SelectedRows.Count > 0)
-            {
-                person = personList[dgwListe.SelectedRows[0].Index];
-                frmAdd frmAdd = new frmAdd(person);
-                if (frmAdd.ShowDialog(this) == DialogResult.OK)
-                {
-                    MessageBox.Show("İnformation updated");
-                }
-                frmAdd.Dispose();
-            }
-            else
-                MessageBox.Show("Select the person you want to edit");
+            EditPerson edit = new EditPerson();
+            edit.editPerson(personList,dgwListe);
         }
 
         private void btnRmv_Click(object sender, EventArgs e)
         {
-            Person person;
-            if (dgwListe.SelectedRows.Count > 0)
-            {
-                DialogResult option = MessageBox.Show("Do you want remove?", " Remove", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-
-                if (option == DialogResult.Yes)
-                {
-                    person = personList[dgwListe.SelectedRows[0].Index];
-                    personList.Remove(person);
-                    MessageBox.Show("Person removed.");
-                }
-            }
-            else
-                MessageBox.Show("Please select the person to be removed.");
+            Remove remove = new Remove();
+            remove.personRemove(dgwListe, personList);     
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            if (cmbType.SelectedIndex == 0)
+            LoadAndSave loadAndSave = new LoadAndSave();
+
+            if (cmbType.Text == FileType.Csv.ToString())         
             {
-                loadSaveMethod(sfdSave, "Csv File|*.csv", saveCvs);
+                SaveCsv saveCsv = new SaveCsv();
+                loadAndSave.loadSaveMethod(sfdSave, csvExtension, saveCsv.saveFileCsv, personList);
             }
-            else if (cmbType.SelectedIndex == 1)
+            else if (cmbType.Text == FileType.Xml.ToString())
             {
-                loadSaveMethod(sfdSave, "XML files|*.xml", saveXml);
+                SaveXml saveXml = new SaveXml();
+                loadAndSave.loadSaveMethod(sfdSave, xmlExtension, saveXml.saveFileXml, personList);
             }
-            else if (cmbType.SelectedIndex == 2)
+            else if (cmbType.Text==FileType.Json.ToString())
             {
-                loadSaveMethod(sfdSave, "Json files|*.json", saveJson);
+                SaveJson saveJson = new SaveJson();
+                loadAndSave.loadSaveMethod(sfdSave, jsonExtension, saveJson.saveFileJson, personList);
             }
             else
                 MessageBox.Show("Select type");
@@ -92,101 +76,27 @@ namespace personelKayit_dosyaOkuma_
         private void btnLoad_Click(object sender, EventArgs e)
         {
             personList.Clear();
+            LoadAndSave loadAndSave = new LoadAndSave();
 
-            if (cmbType.SelectedIndex == 0)
+            if (cmbType.Text == FileType.Csv.ToString())
             {
-                loadSaveMethod(ofdLoad,"Csv File|*.csv",loadCvs);
+                LoadCsv loadCsv = new LoadCsv();
+                loadAndSave.loadSaveMethod(ofdLoad, csvExtension, loadCsv.loadFileCsv, personList);
             }
-            else if (cmbType.SelectedIndex == 1)
+            else if (cmbType.Text == FileType.Xml.ToString())
             {
-                loadSaveMethod(ofdLoad,"Xml File|*.xml",loadXml);
+                LoadXml loadXml = new LoadXml();
+                loadAndSave.loadSaveMethod(ofdLoad, xmlExtension, loadXml.loadFileXml, personList);
             }
-            else if (cmbType.SelectedIndex == 2)
+            else if (cmbType.Text == FileType.Json.ToString())
             {
-                loadSaveMethod(ofdLoad,"Json files|*.json",loadJson);
+                LoadJson loadJson = new LoadJson();
+                loadAndSave.loadSaveMethod(ofdLoad,jsonExtension ,loadJson.loadFileJson, personList);
             }
             else
                 MessageBox.Show("Select type");
         }
 
-        private void loadSaveMethod(FileDialog fileDialog, string filter, Action incomingMethod)
-        {
-            fileDialog.Filter = filter;
-
-            if (fileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                incomingMethod();
-            }
-        }
-
-        private void saveJson()
-        {
-            string convert = JsonConvert.SerializeObject(personList);
-            File.WriteAllText(sfdSave.FileName, convert);
-        }
-
-        private void saveXml()
-        {
-            StreamWriter streamWriter = new StreamWriter(sfdSave.FileName);
-            XmlSerializer xmlSerializer = new XmlSerializer(typeof(BindingList<Person>));
-            xmlSerializer.Serialize(streamWriter, personList);
-            streamWriter.Flush();
-            streamWriter.Close();
-        }
-
-        private void saveCvs()
-        {
-            StreamWriter streamWriter = new StreamWriter(sfdSave.FileName);
-            for (int i = 0; i < personList.Count; i++)
-            {
-                Person _person = personList[i];
-                string personKnowledge = _person.Id + ";" + _person.Name + ";" + _person.SName + ";" + _person.Date;
-                streamWriter.WriteLine(personKnowledge);
-            }
-            streamWriter.Flush();
-            streamWriter.Close();
-        }
-
-        private void loadJson()
-        {
-            BindingList<Person> loadedList = JsonConvert.DeserializeObject<BindingList<Person>>(File.ReadAllText(ofdLoad.FileName));
-            for (int i = 0; i < loadedList.Count; i++)
-            {
-                personList.Add(loadedList[i]);
-            }
-        }
-
-        private void loadXml()
-        {
-            XmlSerializer xmlSerializer = new XmlSerializer(typeof(BindingList<Person>));
-            StreamReader streamReader = new StreamReader(ofdLoad.FileName);
-            BindingList<Person> loadedList = (BindingList<Person>)xmlSerializer.Deserialize(streamReader);
-            for (int i = 0; i < loadedList.Count; i++)
-            {
-                personList.Add(loadedList[i]);
-
-            }
-            streamReader.Close();
-        }
-
-        private void loadCvs()
-        {
-            StreamReader streamReader = new StreamReader(ofdLoad.FileName);
-            string readLine;
-            readLine = streamReader.ReadLine();
-            while (readLine != null)
-            {
-                string[] array = readLine.Split(';');
-                Person person = new Person();
-                person.Id = array[0];
-                person.Name = array[1];
-                person.SName = array[2];
-                person.Date = DateTime.Parse(array[3]);
-                personList.Add(person);
-                readLine = streamReader.ReadLine();
-            }
-            streamReader.Close();
-        }
     }
 }
  
