@@ -12,7 +12,7 @@ namespace personelKayit_dosyaOkuma_
     {
         Person person;
 
-        public void editPerson(BindingList<Person> personList, DataGridView dataGrid)
+        public void Editperson(BindingList<Person> personList, DataGridView dataGrid)
         {
             
             if (dataGrid.SelectedRows.Count > 0)

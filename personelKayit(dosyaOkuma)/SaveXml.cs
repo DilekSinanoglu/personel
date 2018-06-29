@@ -17,7 +17,7 @@ namespace personelKayit_dosyaOkuma_
         XmlSerializer xmlSerializer;
       
 
-        public void saveFileXml(BindingList<Person> personList, FileDialog saveFileDialog)
+        public void SaveFileXml(BindingList<Person> personList, FileDialog saveFileDialog)
         {
             xmlSerializer= new XmlSerializer(typeof(BindingList<Person>));
             streamWriter= new StreamWriter(saveFileDialog.FileName);

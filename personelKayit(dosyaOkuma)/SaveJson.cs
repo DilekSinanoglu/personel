@@ -14,7 +14,7 @@ namespace personelKayit_dosyaOkuma_
     { 
         string convert;
 
-        public void saveFileJson(BindingList<Person> personList, FileDialog saveFileDialog)
+        public void SaveFileJson(BindingList<Person> personList, FileDialog saveFileDialog)
         {
             convert = JsonConvert.SerializeObject(personList);
             File.WriteAllText(saveFileDialog.FileName, convert);

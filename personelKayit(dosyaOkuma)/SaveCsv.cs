@@ -11,8 +11,7 @@ namespace personelKayit_dosyaOkuma_
 {
     class SaveCsv
     {
-
-        public void saveFileCsv(BindingList<Person> personList, FileDialog fileDialog)
+        public void SaveFileCsv(BindingList<Person> personList, FileDialog fileDialog)
         {
             StreamWriter streamWriter = new StreamWriter(fileDialog.FileName);
             for (int i = 0; i < personList.Count; i++)

@@ -16,7 +16,7 @@ namespace personelKayit_dosyaOkuma_
         StreamReader streamReader;
         BindingList<Person> loadedList;
 
-        public void loadFileXml(BindingList<Person> personList, FileDialog fileDialog)
+        public void LoadFileXml(BindingList<Person> personList, FileDialog fileDialog)
         {
             xmlSerializer = new XmlSerializer(typeof(BindingList<Person>));
             streamReader = new StreamReader(fileDialog.FileName);

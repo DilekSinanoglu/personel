@@ -10,7 +10,7 @@ namespace personelKayit_dosyaOkuma_
 {
     class LoadAndSave
     {
-        public void loadSaveMethod(FileDialog fileDialog, string filter, Action<BindingList<Person>, FileDialog> saveLoadFile, BindingList<Person> personList)
+        public void LoadSaveMethod(FileDialog fileDialog, string filter, Action<BindingList<Person>, FileDialog> saveLoadFile, BindingList<Person> personList)
         {
             fileDialog.Filter = filter;
 

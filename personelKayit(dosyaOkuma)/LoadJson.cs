@@ -13,7 +13,7 @@ namespace personelKayit_dosyaOkuma_
     class LoadJson
     {
         BindingList<Person> loadedList;
-        public void loadFileJson(BindingList<Person> personList, FileDialog fileDialog)
+        public void LoadFileJson(BindingList<Person> personList, FileDialog fileDialog)
         {
             loadedList = JsonConvert.DeserializeObject<BindingList<Person>>(File.ReadAllText(fileDialog.FileName));
             for (int i = 0; i < loadedList.Count; i++)

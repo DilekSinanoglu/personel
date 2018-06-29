@@ -13,7 +13,7 @@ namespace personelKayit_dosyaOkuma_
         Person person;
         frmAdd frmAdd;
 
-        public void addPerson(BindingList<Person> personList)
+        public void Addperson(BindingList<Person> personList)
         {
             person = new Person();
             frmAdd = new frmAdd(person);

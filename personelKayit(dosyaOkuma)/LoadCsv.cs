@@ -12,9 +12,7 @@ namespace personelKayit_dosyaOkuma_
     class LoadCsv
     {
         StreamReader streamReader;
-
-
-        public void loadFileCsv(BindingList<Person> personList, FileDialog fileDialog)
+        public void LoadFileCsv(BindingList<Person> personList, FileDialog fileDialog)
         {
             streamReader = new StreamReader(fileDialog.FileName);
             string readLine;

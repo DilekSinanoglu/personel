@@ -10,7 +10,7 @@ namespace personelKayit_dosyaOkuma_
     {
         Csv,
         Xml,
-        Json,
+        Json
 
     }
 }

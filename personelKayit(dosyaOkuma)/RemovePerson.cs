@@ -8,12 +8,12 @@ using System.Windows.Forms;
 
 namespace personelKayit_dosyaOkuma_
 {
-    class Remove
+    class RemovePerson
     {
         Person person;
         DialogResult option;
 
-        internal void personRemove(DataGridView dataGridView, BindingList<Person> personList)
+        public void PersonRemove(DataGridView dataGridView, BindingList<Person> personList)
         {
             if (dataGridView.SelectedRows.Count > 0)
             {

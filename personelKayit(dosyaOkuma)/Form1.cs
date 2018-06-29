@@ -26,39 +26,38 @@ namespace personelKayit_dosyaOkuma_
         private void btnAdd_Click(object sender, EventArgs e)
         {
             AddPerson add = new AddPerson();
-            add.addPerson(personList);
+            add.Addperson(personList);
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
             EditPerson edit = new EditPerson();
-            edit.editPerson(personList,dgwListe);
+            edit.Editperson(personList,dgwListe);
         }
 
         private void btnRmv_Click(object sender, EventArgs e)
         {
-            Remove remove = new Remove();
-            remove.personRemove(dgwListe, personList);     
+            RemovePerson remove = new RemovePerson();
+            remove.PersonRemove(dgwListe, personList);     
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
             LoadAndSave loadAndSave = new LoadAndSave();
-
             if (cmbType.Text == FileType.Csv.ToString())         
             {
                 SaveCsv saveCsv = new SaveCsv();
-                loadAndSave.loadSaveMethod(sfdSave, csvExtension, saveCsv.saveFileCsv, personList);
+                loadAndSave.LoadSaveMethod(sfdSave, csvExtension, saveCsv.SaveFileCsv, personList);
             }
             else if (cmbType.Text == FileType.Xml.ToString())
             {
                 SaveXml saveXml = new SaveXml();
-                loadAndSave.loadSaveMethod(sfdSave, xmlExtension, saveXml.saveFileXml, personList);
+                loadAndSave.LoadSaveMethod(sfdSave, xmlExtension, saveXml.SaveFileXml, personList);
             }
             else if (cmbType.Text==FileType.Json.ToString())
             {
                 SaveJson saveJson = new SaveJson();
-                loadAndSave.loadSaveMethod(sfdSave, jsonExtension, saveJson.saveFileJson, personList);
+                loadAndSave.LoadSaveMethod(sfdSave, jsonExtension, saveJson.SaveFileJson, personList);
             }
             else
                 MessageBox.Show("Select type");
@@ -72,17 +71,17 @@ namespace personelKayit_dosyaOkuma_
             if (cmbType.Text == FileType.Csv.ToString())
             {
                 LoadCsv loadCsv = new LoadCsv();
-                loadAndSave.loadSaveMethod(ofdLoad, csvExtension, loadCsv.loadFileCsv, personList);
+                loadAndSave.LoadSaveMethod(ofdLoad, csvExtension, loadCsv.LoadFileCsv, personList);
             }
             else if (cmbType.Text == FileType.Xml.ToString())
             {
                 LoadXml loadXml = new LoadXml();
-                loadAndSave.loadSaveMethod(ofdLoad, xmlExtension, loadXml.loadFileXml, personList);
+                loadAndSave.LoadSaveMethod(ofdLoad, xmlExtension, loadXml.LoadFileXml, personList);
             }
             else if (cmbType.Text == FileType.Json.ToString())
             {
                 LoadJson loadJson = new LoadJson();
-                loadAndSave.loadSaveMethod(ofdLoad,jsonExtension ,loadJson.loadFileJson, personList);
+                loadAndSave.LoadSaveMethod(ofdLoad,jsonExtension ,loadJson.LoadFileJson, personList);
             }
             else
                 MessageBox.Show("Select type");
