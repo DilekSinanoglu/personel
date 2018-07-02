@@ -41,8 +41,8 @@
             this.SName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.cmbType = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.cmbType = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgwListe)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -151,18 +151,6 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Save and Load";
             // 
-            // cmbType
-            // 
-            this.cmbType.FormattingEnabled = true;
-            this.cmbType.Items.AddRange(new object[] {
-            ".csv",
-            ".xml",
-            ".json"});
-            this.cmbType.Location = new System.Drawing.Point(50, 29);
-            this.cmbType.Name = "cmbType";
-            this.cmbType.Size = new System.Drawing.Size(44, 21);
-            this.cmbType.TabIndex = 0;
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -171,6 +159,14 @@
             this.label1.Size = new System.Drawing.Size(31, 13);
             this.label1.TabIndex = 1;
             this.label1.Text = "Type";
+            // 
+            // cmbType
+            // 
+            this.cmbType.FormattingEnabled = true;
+            this.cmbType.Location = new System.Drawing.Point(50, 29);
+            this.cmbType.Name = "cmbType";
+            this.cmbType.Size = new System.Drawing.Size(44, 21);
+            this.cmbType.TabIndex = 0;
             // 
             // Form1
             // 
