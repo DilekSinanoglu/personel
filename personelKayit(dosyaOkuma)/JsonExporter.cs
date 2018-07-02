@@ -18,7 +18,6 @@ namespace personelKayit_dosyaOkuma_
             get { return fileExtension; }
         }
 
-
         public void SaveToFile(BindingList<Person> personList,string filePath)
         {
             string convert = JsonConvert.SerializeObject(personList);

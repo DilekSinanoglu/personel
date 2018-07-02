@@ -18,13 +18,13 @@ namespace personelKayit_dosyaOkuma_
         {
             InitializeComponent();
             dgwListe.AutoGenerateColumns = false;
-            dgwListe.DataSource = personList;
+            dgwListe.DataSource = personList;           
             fillComboboxItems();
         }
 
         private void fillComboboxItems()
         {
-            cmbType.Items.AddRange(Enum.GetNames(typeof(FileType)));
+            cmbType.Items.AddRange(PersonExporterFactory.GetAvailableTypes());
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -53,7 +53,7 @@ namespace personelKayit_dosyaOkuma_
                 frmAdd.Dispose();
             }
             else
-                MessageBox.Show("Select the person you want to edit");
+                MessageBox.Show("Select the person you want to edit!");
         }
 
         private void btnRmv_Click(object sender, EventArgs e)
@@ -76,129 +76,51 @@ namespace personelKayit_dosyaOkuma_
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            if ((FileType)cmbType.SelectedIndex == FileType.Csv)
+            if(cmbType.Text!=null)
             {
-                saveCsv();
-            }
-            else if ((FileType)cmbType.SelectedIndex == FileType.Xml)
-            {
-                saveXml();
-            }
-            else if ((FileType)cmbType.SelectedIndex == FileType.Json)
-            {
-                saveJson();           
+                IPersonExporter personExporter = PersonExporterFactory.CreateExporter(cmbType.Text);
+                string filePath = loadSaveMethod(sfdSave, personExporter);
+
+                if (filePath != null)
+                {
+                    personExporter.SaveToFile(personList, filePath);
+                    MessageBox.Show("Registration Successful");
+                }
             }
             else
                 MessageBox.Show("Select type");
         }
+
         private void btnLoad_Click(object sender, EventArgs e)
         {
-            personList.Clear();
-
-            if ((FileType)cmbType.SelectedIndex == FileType.Csv)
+            if (cmbType.Text != null)
             {
-                loadCsv();
-            }
-            else if ((FileType)cmbType.SelectedIndex == FileType.Xml)
-            {
-                loadXml();
-
-            }
-            else if ((FileType)cmbType.SelectedIndex == FileType.Json)
-            {
-                loadJson();
+                IPersonExporter personExporter = PersonExporterFactory.CreateExporter(cmbType.Text);
+                string filePath = loadSaveMethod(ofdLoad, personExporter);
+                if (filePath != null)
+                {
+                    personList.Clear();                    
+                    BindingList<Person> loadedList = personExporter.LoadFromFile(filePath);
+                    for (int i = 0; i < loadedList.Count; i++)
+                    {
+                        personList.Add(loadedList[i]);
+                    }
+                    MessageBox.Show("Upload Successful");
+                }
             }
             else
                 MessageBox.Show("Select type");
         }
 
-        private string loadSaveMethod(FileDialog fileType, string filter)
+        private string loadSaveMethod(FileDialog fileDialog, IPersonExporter personExporter)
         {
-            fileType.Filter = filter;
-            if (fileType.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            string filter = personExporter.FormatName + "|*" + personExporter.FileExtension;
+            fileDialog.Filter = filter;
+            if (fileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                return fileType.FileName;
+                return fileDialog.FileName;
             }
             return null;
-        }
-
-        private void saveXml()
-        {
-            XmlExporter xmlExporter = new XmlExporter();
-            string filter = xmlExporter.FormatName + "|*" + xmlExporter.FileExtension;
-            string filePath = loadSaveMethod(sfdSave, filter);
-            if (filePath != null)
-            {
-                xmlExporter.SaveToFile(personList, filePath);
-            }
-        }
-
-
-        private void loadXml()
-        {
-            XmlExporter xmlExporter = new XmlExporter();
-            string filter = xmlExporter.FormatName + "|*" + xmlExporter.FileExtension;
-            string filePath = loadSaveMethod(ofdLoad, filter);
-            if (filePath != null)
-            {
-                BindingList<Person> loadedList = xmlExporter.LoadFromFile(filePath);
-                for (int i = 0; i < loadedList.Count; i++)
-                {
-                    personList.Add(loadedList[i]);
-                }
-            }
-        }
-
-        private void saveJson()
-        {
-            JsonExporter jsonExporter = new JsonExporter();
-            string filter = jsonExporter.FormatName + "|*" + jsonExporter.FileExtension;
-            string filePath = loadSaveMethod(sfdSave, filter);
-            if (filePath != null)
-            {
-                jsonExporter.SaveToFile(personList, filePath);
-            }
-        }
-
-        private void loadJson()
-        {
-            JsonExporter jsonExporter = new JsonExporter();
-            string filter = jsonExporter.FormatName + "|*" + jsonExporter.FileExtension;
-            string filePath = loadSaveMethod(ofdLoad, filter);
-            if (filePath != null)
-            {
-                BindingList<Person> loadedList = jsonExporter.LoadFromFile(filePath);
-                for (int i = 0; i < loadedList.Count; i++)
-                {
-                    personList.Add(loadedList[i]);
-                }
-            }
-        }
-
-        private void saveCsv()
-        {
-            CsvExporter csvExporter = new CsvExporter();
-            string filter = csvExporter.FormatName + "|*" + csvExporter.FileExtension;
-            string filePath = loadSaveMethod(sfdSave, filter);
-            if (filePath != null)
-            {
-                csvExporter.SaveToFile(personList, filePath);
-            }
-        }
-
-        private void loadCsv()
-        {
-            CsvExporter csvExporter = new CsvExporter();
-            string filter = csvExporter.FormatName + "|*" + csvExporter.FileExtension;
-            string filePath = loadSaveMethod(ofdLoad, filter);
-            if (filePath != null)
-            {
-                BindingList<Person> loadedList = csvExporter.LoadFromFile(filePath);
-                for (int i = 0; i < loadedList.Count; i++)
-                {
-                    personList.Add(loadedList[i]);
-                }
-            }
         }
     }
 }
