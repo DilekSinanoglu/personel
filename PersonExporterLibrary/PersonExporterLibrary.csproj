@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CsvExporterLibrary\CsvExporterLibrary.csproj" />
+    <ProjectReference Include="..\JsonExporterLibrary\JsonExporterLibrary.csproj" />
+    <ProjectReference Include="..\PersonLibrary\PersonLibrary.csproj" />
+    <ProjectReference Include="..\XmlExporterLibrary\XmlExporterLibrary.csproj" />
+  </ItemGroup>
+
+</Project>

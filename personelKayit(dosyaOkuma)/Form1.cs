@@ -79,7 +79,7 @@ namespace personelKayit_dosyaOkuma_
                 if (filePath != null)
                 {
                     personExporter.SaveToFile(personList, filePath);
-                    MessageBox.Show("Registration Successful");
+                    MessageBox.Show("Save Successful");
                 }
             }
             else
@@ -94,13 +94,13 @@ namespace personelKayit_dosyaOkuma_
                 string filePath = loadSaveMethod(ofdLoad, personExporter);
                 if (filePath != null)
                 {
-                    personList.Clear();                    
+                    personList.Clear(); 
                     BindingList<Person> loadedList = personExporter.LoadFromFile(filePath);
                     for (int i = 0; i < loadedList.Count; i++)
                     {
                         personList.Add(loadedList[i]);
                     }
-                    MessageBox.Show("Upload Successful");
+                    MessageBox.Show("Successful");
                 }
             }
             else
