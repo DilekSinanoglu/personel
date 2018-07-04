@@ -7,19 +7,23 @@ namespace personelKayit_dosyaOkuma_
 {
     public partial class Form1 : Form
     {
+        IPersonExporterFactory exporterFactory;
         BindingList<Person> personList = new BindingList<Person>();
 
-        public Form1()
+        public Form1(IPersonExporterFactory exporterFactory)
         {
             InitializeComponent();
             dgwListe.AutoGenerateColumns = false;
-            dgwListe.DataSource = personList;           
+            dgwListe.DataSource = personList;
+
+            this.exporterFactory = exporterFactory;
+
             fillComboboxItems();
         }
 
         private void fillComboboxItems()
         {
-            cmbType.Items.AddRange(PersonExporterFactory.GetAvailableTypes());
+            cmbType.Items.AddRange(exporterFactory.GetAvailableTypes());
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -35,7 +39,7 @@ namespace personelKayit_dosyaOkuma_
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
-        {
+        { 
             Person person;
             if (dgwListe.SelectedRows.Count > 0)
             {
@@ -73,7 +77,7 @@ namespace personelKayit_dosyaOkuma_
         {
             if(cmbType.Text!=null)
             {
-                IPersonExporter personExporter = PersonExporterFactory.CreateExporter(cmbType.Text);
+                IPersonExporter personExporter = exporterFactory.CreateExporter(cmbType.Text);
                 string filePath = loadSaveMethod(sfdSave, personExporter);
 
                 if (filePath != null)
@@ -90,7 +94,7 @@ namespace personelKayit_dosyaOkuma_
         {
             if (cmbType.Text != null)
             {
-                IPersonExporter personExporter = PersonExporterFactory.CreateExporter(cmbType.Text);
+                IPersonExporter personExporter = exporterFactory.CreateExporter(cmbType.Text);
                 string filePath = loadSaveMethod(ofdLoad, personExporter);
                 if (filePath != null)
                 {

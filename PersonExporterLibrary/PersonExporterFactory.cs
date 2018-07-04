@@ -3,20 +3,16 @@ using PersonLibrary;
 
 namespace personelKayit_dosyaOkuma_
 {
-    public static class PersonExporterFactory
+    public class PersonExporterFactory : IPersonExporterFactory
     {
-        static List<IPersonExporter> exporterList;
-        static PersonExporterFactory()
+        List<IPersonExporter> exporterList;
+
+        public PersonExporterFactory(IPersonExporter[] exporters)
         {
-            exporterList = new List<IPersonExporter>
-            {
-                new CsvExporter(),
-                new XmlExporter(),
-                new JsonExporter()
-            };
+            exporterList = new List<IPersonExporter>(exporters);
         }
 
-        public static string[] GetAvailableTypes()
+        public string[] GetAvailableTypes()
         {
             string[] exporterType = new string[exporterList.Count];
             for (int i = 0; i < exporterList.Count; i++)
@@ -26,7 +22,7 @@ namespace personelKayit_dosyaOkuma_
             return exporterType;
         }
 
-        public static IPersonExporter CreateExporter(string name)
+        public IPersonExporter CreateExporter(string name)
         {
 
             for (int i = 0; i < exporterList.Count; i++)
