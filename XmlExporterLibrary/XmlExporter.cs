@@ -17,6 +17,7 @@ namespace personelKayit_dosyaOkuma_
         {
             get { return fileExtension; }
         }
+
         XmlSerializer xmlSerializer = new XmlSerializer(typeof(BindingList<Person>));
 
         public void SaveToFile(BindingList<Person> personList, string filePath)
@@ -26,6 +27,7 @@ namespace personelKayit_dosyaOkuma_
             streamWriter.Flush();
             streamWriter.Close();
         }
+
         public BindingList<Person> LoadFromFile(string filePath)
         {
             StreamReader streamReader = new StreamReader(filePath);

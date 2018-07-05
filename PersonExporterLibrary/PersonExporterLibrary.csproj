@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CsvExporterLibrary\CsvExporterLibrary.csproj" />
+    <ProjectReference Include="..\HtmlExporterLibrary\HtmlExporterLibrary.csproj" />
     <ProjectReference Include="..\JsonExporterLibrary\JsonExporterLibrary.csproj" />
     <ProjectReference Include="..\PersonLibrary\PersonLibrary.csproj" />
     <ProjectReference Include="..\XmlExporterLibrary\XmlExporterLibrary.csproj" />
