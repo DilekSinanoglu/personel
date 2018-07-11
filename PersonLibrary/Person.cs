@@ -1,31 +1,18 @@
 ﻿using System;
 using System.ComponentModel;
+//using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PersonLibrary
 {
     public class Person : INotifyPropertyChanged
     {
-        string id;
         string name;
         string sName;
         DateTime date;
-        public string Id
-        {
-            get
-            {
-                return id;
-            }
-            set
-            {
-                id = value;
-            }
-        }
+        public string Id { get; set; }
         public string Name
         {
-            get
-            {
-                return name;
-            }
+            get { return name; }
             set
             {
                 name = value;
@@ -34,10 +21,7 @@ namespace PersonLibrary
         }
         public string SName
         {
-            get
-            {
-                return sName;
-            }
+            get { return sName; }
             set
             {
                 sName = value;
@@ -46,10 +30,7 @@ namespace PersonLibrary
         }
         public DateTime Date
         {
-            get
-            {
-                return date;
-            }
+            get { return date; }
             set
             {
                 date = value;

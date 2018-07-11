@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Forms;
+using personelKayit_dosyaOkuma_.Services;
 using PersonLibrary;
 
 namespace personelKayit_dosyaOkuma_
@@ -9,16 +11,25 @@ namespace personelKayit_dosyaOkuma_
     {
         IPersonExporterFactory exporterFactory;
         BindingList<Person> personList = new BindingList<Person>();
+        IPersonService service = new PersonService();
 
         public Form1(IPersonExporterFactory exporterFactory)
         {
             InitializeComponent();
             dgwListe.AutoGenerateColumns = false;
-            dgwListe.DataSource = personList;
-
+            SetAllDataGrid();
             this.exporterFactory = exporterFactory;
-
             fillComboboxItems();
+        }
+
+        private void SetAllDataGrid()
+        {
+            IList<Person> people = service.GetAll();
+            for (int i = 0; i < people.Count; i++)
+            {
+                personList.Add(people[i]);
+            }       
+            dgwListe.DataSource = personList;
         }
 
         private void fillComboboxItems()
@@ -29,17 +40,21 @@ namespace personelKayit_dosyaOkuma_
         private void btnAdd_Click(object sender, EventArgs e)
         {
             Person person = new Person();
+
             frmAdd frmAdd = new frmAdd(person);
             if (frmAdd.ShowDialog(this) == DialogResult.OK)
             {
                 personList.Add(person);
+                service.Add(person);
                 MessageBox.Show("New person addedd.");
             }
             frmAdd.Dispose();
+
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
-        { 
+        {
+
             Person person;
             if (dgwListe.SelectedRows.Count > 0)
             {
@@ -47,12 +62,15 @@ namespace personelKayit_dosyaOkuma_
                 frmAdd frmAdd = new frmAdd(person);
                 if (frmAdd.ShowDialog(this) == DialogResult.OK)
                 {
+                    service.Update(person);
                     MessageBox.Show("İnformation updated");
                 }
                 frmAdd.Dispose();
             }
             else
                 MessageBox.Show("Select the person you want to edit!");
+
+
         }
 
         private void btnRmv_Click(object sender, EventArgs e)
@@ -66,6 +84,7 @@ namespace personelKayit_dosyaOkuma_
                 {
                     person = personList[dgwListe.SelectedRows[0].Index];
                     personList.Remove(person);
+                    service.Delete(person.Id);
                     MessageBox.Show("Person removed.");
                 }
             }
@@ -75,7 +94,7 @@ namespace personelKayit_dosyaOkuma_
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            if(cmbType.Text!=null)
+            if (cmbType.Text != null)
             {
                 IPersonExporter personExporter = exporterFactory.CreateExporter(cmbType.Text);
                 string filePath = loadSaveMethod(sfdSave, personExporter);
@@ -98,7 +117,7 @@ namespace personelKayit_dosyaOkuma_
                 string filePath = loadSaveMethod(ofdLoad, personExporter);
                 if (filePath != null)
                 {
-                    personList.Clear(); 
+                    personList.Clear();
                     BindingList<Person> loadedList = personExporter.LoadFromFile(filePath);
                     for (int i = 0; i < loadedList.Count; i++)
                     {
@@ -120,6 +139,18 @@ namespace personelKayit_dosyaOkuma_
                 return fileDialog.FileName;
             }
             return null;
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            personList.Clear();        
+            IList<Person> searchList = service.Search(txtSearch.Text);
+            for (int i = 0; i < searchList.Count; i++)
+            {
+                Person person = new Person();
+                person = searchList[i];
+                personList.Add(person);
+            }
         }
     }
 }

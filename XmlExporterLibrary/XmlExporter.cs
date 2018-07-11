@@ -18,12 +18,14 @@ namespace personelKayit_dosyaOkuma_
             get { return fileExtension; }
         }
 
+        public XmlSerializer XmlSerializer { get => xmlSerializer; set => xmlSerializer = value; }
+
         XmlSerializer xmlSerializer = new XmlSerializer(typeof(BindingList<Person>));
 
         public void SaveToFile(BindingList<Person> personList, string filePath)
         {
             StreamWriter streamWriter = new StreamWriter(filePath);
-            xmlSerializer.Serialize(streamWriter, personList);
+            XmlSerializer.Serialize(streamWriter, personList);
             streamWriter.Flush();
             streamWriter.Close();
         }
@@ -31,7 +33,7 @@ namespace personelKayit_dosyaOkuma_
         public BindingList<Person> LoadFromFile(string filePath)
         {
             StreamReader streamReader = new StreamReader(filePath);
-            BindingList<Person> loadedList = (BindingList<Person>)xmlSerializer.Deserialize(streamReader);
+            BindingList<Person> loadedList = (BindingList<Person>)XmlSerializer.Deserialize(streamReader);
             streamReader.Close();
             return loadedList;
         }

@@ -43,13 +43,17 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
             this.cmbType = new System.Windows.Forms.ComboBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.btnSearch = new System.Windows.Forms.Button();
+            this.txtSearch = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgwListe)).BeginInit();
             this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(105, 196);
+            this.btnAdd.Location = new System.Drawing.Point(230, 245);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(75, 41);
             this.btnAdd.TabIndex = 1;
@@ -59,7 +63,7 @@
             // 
             // btnEdit
             // 
-            this.btnEdit.Location = new System.Drawing.Point(201, 196);
+            this.btnEdit.Location = new System.Drawing.Point(326, 245);
             this.btnEdit.Name = "btnEdit";
             this.btnEdit.Size = new System.Drawing.Size(75, 41);
             this.btnEdit.TabIndex = 2;
@@ -69,7 +73,7 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(112, 29);
+            this.btnSave.Location = new System.Drawing.Point(97, 21);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(54, 24);
             this.btnSave.TabIndex = 4;
@@ -79,7 +83,7 @@
             // 
             // btnRmv
             // 
-            this.btnRmv.Location = new System.Drawing.Point(296, 196);
+            this.btnRmv.Location = new System.Drawing.Point(421, 245);
             this.btnRmv.Name = "btnRmv";
             this.btnRmv.Size = new System.Drawing.Size(75, 41);
             this.btnRmv.TabIndex = 3;
@@ -89,7 +93,7 @@
             // 
             // btnLoad
             // 
-            this.btnLoad.Location = new System.Drawing.Point(172, 29);
+            this.btnLoad.Location = new System.Drawing.Point(157, 21);
             this.btnLoad.Name = "btnLoad";
             this.btnLoad.Size = new System.Drawing.Size(50, 24);
             this.btnLoad.TabIndex = 5;
@@ -109,9 +113,12 @@
             this.Column2,
             this.SName,
             this.Column4});
-            this.dgwListe.Location = new System.Drawing.Point(29, 16);
+            this.dgwListe.Cursor = System.Windows.Forms.Cursors.PanNE;
+            this.dgwListe.Location = new System.Drawing.Point(28, 74);
+            this.dgwListe.MultiSelect = false;
             this.dgwListe.Name = "dgwListe";
-            this.dgwListe.Size = new System.Drawing.Size(441, 150);
+            this.dgwListe.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgwListe.Size = new System.Drawing.Size(435, 150);
             this.dgwListe.TabIndex = 6;
             // 
             // Column1
@@ -144,9 +151,9 @@
             this.groupBox1.Controls.Add(this.cmbType);
             this.groupBox1.Controls.Add(this.btnLoad);
             this.groupBox1.Controls.Add(this.btnSave);
-            this.groupBox1.Location = new System.Drawing.Point(118, 254);
+            this.groupBox1.Location = new System.Drawing.Point(4, 237);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(235, 72);
+            this.groupBox1.Size = new System.Drawing.Size(219, 57);
             this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Save and Load";
@@ -154,7 +161,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 34);
+            this.label1.Location = new System.Drawing.Point(6, 27);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(31, 13);
             this.label1.TabIndex = 1;
@@ -164,16 +171,45 @@
             // 
             this.cmbType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbType.FormattingEnabled = true;
-            this.cmbType.Location = new System.Drawing.Point(50, 29);
+            this.cmbType.Location = new System.Drawing.Point(46, 23);
             this.cmbType.Name = "cmbType";
             this.cmbType.Size = new System.Drawing.Size(44, 21);
             this.cmbType.TabIndex = 0;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.btnSearch);
+            this.groupBox2.Controls.Add(this.txtSearch);
+            this.groupBox2.Location = new System.Drawing.Point(264, 11);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(225, 57);
+            this.groupBox2.TabIndex = 8;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Search";
+            // 
+            // btnSearch
+            // 
+            this.btnSearch.Location = new System.Drawing.Point(139, 22);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(75, 23);
+            this.btnSearch.TabIndex = 1;
+            this.btnSearch.Text = "Search";
+            this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
+            // 
+            // txtSearch
+            // 
+            this.txtSearch.Location = new System.Drawing.Point(27, 23);
+            this.txtSearch.Name = "txtSearch";
+            this.txtSearch.Size = new System.Drawing.Size(100, 20);
+            this.txtSearch.TabIndex = 0;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(486, 345);
+            this.ClientSize = new System.Drawing.Size(506, 298);
+            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.dgwListe);
             this.Controls.Add(this.btnRmv);
@@ -181,10 +217,11 @@
             this.Controls.Add(this.btnAdd);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Personel Listesi";
             ((System.ComponentModel.ISupportInitialize)(this.dgwListe)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -197,7 +234,6 @@
         private System.Windows.Forms.Button btnLoad;
         private System.Windows.Forms.SaveFileDialog sfdSave;
         private System.Windows.Forms.OpenFileDialog ofdLoad;
-        public System.Windows.Forms.DataGridView dgwListe;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn SName;
@@ -205,6 +241,11 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox cmbType;
+        public System.Windows.Forms.DataGridView dgwListe;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Button btnSearch;
+        private System.Windows.Forms.TextBox txtSearch;
+
     }
 }
 
