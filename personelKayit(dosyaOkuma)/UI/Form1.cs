@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Windows.Forms;
+using NLog;
 using personelKayit_dosyaOkuma_.Services;
 using PersonLibrary;
-
+using System.Diagnostics;
 namespace personelKayit_dosyaOkuma_
 {
     public partial class Form1 : Form
@@ -12,6 +14,7 @@ namespace personelKayit_dosyaOkuma_
         IPersonExporterFactory exporterFactory;
         BindingList<Person> personList = new BindingList<Person>();
         IPersonService service = new PersonService();
+        Logger logger = NLog.LogManager.GetCurrentClassLogger();
 
         public Form1(IPersonExporterFactory exporterFactory)
         {
@@ -36,7 +39,8 @@ namespace personelKayit_dosyaOkuma_
         {
             cmbType.Items.AddRange(exporterFactory.GetAvailableTypes());
         }
-
+   
+      
         private void btnAdd_Click(object sender, EventArgs e)
         {
             Person person = new Person();
@@ -47,6 +51,7 @@ namespace personelKayit_dosyaOkuma_
                 personList.Add(person);
                 service.Add(person);
                 MessageBox.Show("New person addedd.");
+                logger.Info("Add metodu çalıştı kişi kaydetme yapıldı");
             }
             frmAdd.Dispose();
 
@@ -64,6 +69,8 @@ namespace personelKayit_dosyaOkuma_
                 {
                     service.Update(person);
                     MessageBox.Show("İnformation updated");
+                    logger.Warn("Edit metodu çalıştı.Kişi bilgileri güncellendi.");
+
                 }
                 frmAdd.Dispose();
             }
@@ -85,7 +92,8 @@ namespace personelKayit_dosyaOkuma_
                     person = personList[dgwListe.SelectedRows[0].Index];
                     personList.Remove(person);
                     service.Delete(person.Id);
-                    MessageBox.Show("Person removed.");
+                    MessageBox.Show("Person removed.");                
+                    logger.Warn("Remove metodu çalıştı.Kişi silindi.");
                 }
             }
             else
@@ -103,6 +111,7 @@ namespace personelKayit_dosyaOkuma_
                 {
                     personExporter.SaveToFile(personList, filePath);
                     MessageBox.Show("Save Successful");
+
                 }
             }
             else
@@ -152,5 +161,6 @@ namespace personelKayit_dosyaOkuma_
                 personList.Add(person);
             }
         }
+   
     }
 }
