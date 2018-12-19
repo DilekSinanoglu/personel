@@ -143,7 +143,7 @@
             this.Controls.Add(this.label1);
             this.Name = "frmAdd";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "frmAdd";
+            this.Text = "Person Add - Edit";
             this.ResumeLayout(false);
             this.PerformLayout();
 

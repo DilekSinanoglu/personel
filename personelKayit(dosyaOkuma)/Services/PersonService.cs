@@ -36,7 +36,5 @@ namespace personelKayit_dosyaOkuma_.Services
         {
             return personRepository.GetNameSearch(searchedPerson);
         }
-
-
     }
 }

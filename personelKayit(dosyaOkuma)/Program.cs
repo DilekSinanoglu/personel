@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Autofac;
 using Autofac.Features.ResolveAnything;
@@ -13,9 +10,7 @@ namespace personelKayit_dosyaOkuma_
 {
     static class Program
     {
-        /// <summary>
-        /// Uygulamanın ana girdi noktası.
-        /// </summary>
+      
         [STAThread]
         static void Main()
         {

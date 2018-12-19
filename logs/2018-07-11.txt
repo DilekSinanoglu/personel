@@ -1,4 +1,4 @@
-------------Info (2018/07/11 14:50:05.323)-----------
+------------Info (2018/07/11 16:06:29.182)-----------
  
  Call Site = personelKayit_dosyaOkuma_.Form1.btnAdd_Click
  Additional Info: Add metodu çalýþtý kiþi kaydetme yapýldý

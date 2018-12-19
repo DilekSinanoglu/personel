@@ -1,0 +1,5 @@
+------------Warn (2018/07/18 10:17:11.358)-----------
+ 
+ Call Site = personelKayit_dosyaOkuma_.Form1.btnRmv_Click
+ Additional Info: Remove metodu çalýþtý.Kiþi silindi.
+

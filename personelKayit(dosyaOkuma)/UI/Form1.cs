@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.IO;
 using System.Windows.Forms;
 using NLog;
 using personelKayit_dosyaOkuma_.Services;
 using PersonLibrary;
-using System.Diagnostics;
 namespace personelKayit_dosyaOkuma_
 {
     public partial class Form1 : Form
@@ -52,6 +50,12 @@ namespace personelKayit_dosyaOkuma_
                 service.Add(person);
                 MessageBox.Show("New person addedd.");
                 logger.Info("Add metodu çalıştı kişi kaydetme yapıldı");
+
+                for (int i = 0; i < personList.Count; i++)
+                {
+                    MessageBox.Show(personList[i].ToString());
+                }
+
             }
             frmAdd.Dispose();
 
@@ -161,6 +165,10 @@ namespace personelKayit_dosyaOkuma_
                 personList.Add(person);
             }
         }
-   
+
+        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        {
+
+        }
     }
 }

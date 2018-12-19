@@ -42,8 +42,7 @@ namespace personelKayit_dosyaOkuma_.Database
             var _query = from p in context.Persons where p.Name.StartsWith(searchedPerson) select p;
 
             return _query.ToList();
-
-            //return context.Persons.Where(p => p.Name.StartsWith(searchedPerson)).ToList();
+            
         }
         public IList<string> GetNameSearch(string searchedPerson)
         {
@@ -64,10 +63,7 @@ namespace personelKayit_dosyaOkuma_.Database
             var results = _query.ToList();
 
             return results.ConvertAll<Person>((a) => new Person() { Id = a.Id, Name = a.personName });
-
-
-            // db.Products.FirstOrDefault(p => p.ProductID == 3).ProductName;
-            //return _query;
+            
         }
     }
 }
